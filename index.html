@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic Recycling Demo</title>
+    <script src="/_sdk/element_sdk.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        .process-step {
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .plastic-particle {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .plastic-particle:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .plastic-particle:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .machine-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .block-showcase {
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .demo-active .process-step {
+            animation: highlight 0.8s ease-in-out;
+        }
+
+        @keyframes highlight {
+
+            0%,
+            100% {
+                background-color: transparent;
+            }
+
+            50% {
+                background-color: rgba(34, 197, 94, 0.1);
+            }
+        }
+    </style>
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="min-h-full bg-gradient-to-br from-green-50 to-blue-50">
+    <main class="container mx-auto px-4 py-8"><!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 id="main-title" class="text-5xl font-bold text-gray-800 mb-4">Plastic Waste to Machinable Blocks</h1>
+            <p id="subtitle" class="text-xl text-gray-600 max-w-3xl mx-auto">Watch how discarded plastic transforms into
+                valuable, precision-machinable blocks through our innovative recycling process</p>
+        </header><!-- Interactive Demo Button -->
+        <div class="text-center mb-16"><button id="demo-btn"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform transition hover:scale-105">
+                Start Interactive Demo </button>
+        </div><!-- Process Steps -->
+        <section class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"><!-- Step 1: Collection -->
+            <div class="process-step bg-white rounded-xl p-6 shadow-lg text-center" data-step="1">
+                <div class="mb-4">
+                    <svg class="w-16 h-16 mx-auto text-red-500" fill="currentColor" viewbox="0 0 24 24">
+                        <path
+                            d="M19 7v2.99s-1.99.01-2 0V7h-3s.01-1.99 0-2h3V2h2v3h3v2h-3zm-3 4V9h-3V7H5c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h6.31l.69-2H5V9h8v2h3z" />
+                        <circle cx="6.5" cy="13.5" r="1.5" />
+                        <circle cx="6.5" cy="16.5" r="1.5" />
+                    </svg>
+                </div>
+                <h3 id="step1-title" class="text-lg font-semibold text-gray-800 mb-2">Waste Collection</h3>
+                <p class="text-gray-600 text-sm">Plastic bottles, containers, and packaging materials are collected from
+                    various sources</p>
+                <div class="mt-4 flex justify-center space-x-2">
+                    <div class="plastic-particle w-3 h-3 bg-red-400 rounded-full"></div>
+                    <div class="plastic-particle w-3 h-3 bg-blue-400 rounded-full"></div>
+                    <div class="plastic-particle w-3 h-3 bg-yellow-400 rounded-full"></div>
+                </div>
+            </div><!-- Step 2: Sorting & Cleaning -->
+            <div class="process-step bg-white rounded-xl p-6 shadow-lg text-center" data-step="2">
+                <div class="mb-4">
+                    <svg class="w-16 h-16 mx-auto text-blue-500" fill="currentColor" viewbox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                </div>
+                <h3 id="step2-title" class="text-lg font-semibold text-gray-800 mb-2">Sorting &amp; Cleaning</h3>
+                <p class="text-gray-600 text-sm">Materials are sorted by type and thoroughly cleaned to remove
+                    contaminants and labels</p>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full w-3/4"></div>
+                    </div>
+                </div>
+            </div><!-- Step 3: Shredding & Melting -->
+            <div class="process-step bg-white rounded-xl p-6 shadow-lg text-center" data-step="3">
+                <div class="mb-4">
+                    <svg class="machine-animation w-16 h-16 mx-auto text-orange-500" fill="currentColor"
+                        viewbox="0 0 24 24">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <h3 id="step3-title" class="text-lg font-semibold text-gray-800 mb-2">Shredding &amp; Melting</h3>
+                <p class="text-gray-600 text-sm">Clean plastic is shredded into flakes and melted down into a moldable
+                    polymer material</p>
+                <div class="mt-4 flex justify-center">
+                    <div class="w-8 h-8 bg-orange-400 rounded-full animate-spin"></div>
+                </div>
+            </div><!-- Step 4: Block Formation -->
+            <div class="process-step bg-white rounded-xl p-6 shadow-lg text-center" data-step="4">
+                <div class="mb-4">
+                    <div
+                        class="block-showcase w-16 h-16 mx-auto bg-gradient-to-r from-green-400 to-green-600 rounded-lg shadow-lg">
+                    </div>
+                </div>
+                <h3 id="step4-title" class="text-lg font-semibold text-gray-800 mb-2">Machinable Blocks</h3>
+                <p class="text-gray-600 text-sm">Molten plastic is formed into precision blocks ready for CNC machining
+                    and manufacturing</p>
+                <div class="mt-4"><span
+                        class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Ready to
+                        Machine</span>
+                </div>
+            </div>
+        </section><!-- Benefits Section -->
+        <section class="bg-white rounded-2xl p-8 shadow-lg mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Environmental Impact</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-600 mb-2">
+                        85%
+                    </div>
+                    <p class="text-gray-600">Reduction in plastic waste</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">
+                        60%
+                    </div>
+                    <p class="text-gray-600">Less energy than virgin plastic</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-purple-600 mb-2">
+                        100%
+                    </div>
+                    <p class="text-gray-600">Recyclable end products</p>
+                </div>
+            </div>
+        </section><!-- Technical Specifications -->
+        <section class="bg-gray-50 rounded-2xl p-8 shadow-lg mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Block Specifications</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Material Properties</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• Density: 0.92-0.96 g/cm³</li>
+                        <li>• Tensile Strength: 20-35 MPa</li>
+                        <li>• Melting Point: 120-180°C</li>
+                        <li>• Shore Hardness: 55-75D</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Machining Capabilities</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• CNC milling compatible</li>
+                        <li>• Precision turning possible</li>
+                        <li>• Drilling and tapping ready</li>
+                        <li>• Surface finishing available</li>
+                    </ul>
+                </div>
+            </div>
+        </section><!-- Plastic Calculator -->
+        <section class="bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl p-8 shadow-lg mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Plastic to Machinable Block Calculator</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Calculate how much plastic waste can be
+                converted into precision machinable blocks ready for CNC manufacturing</p>
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div><label for="plastic-input" class="block text-sm font-medium text-gray-700 mb-2">Plastic
+                                Waste Input (kg)</label> <input type="number" id="plastic-input"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                placeholder="Enter kg of plastic" min="0" step="0.1">
+                        </div>
+                        <div><label for="plastic-type" class="block text-sm font-medium text-gray-700 mb-2">Plastic
+                                Type</label> <select id="plastic-type"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                <option value="pet">PET Bottles (85% efficiency)</option>
+                                <option value="hdpe">HDPE Containers (90% efficiency)</option>
+                                <option value="pp">PP Packaging (80% efficiency)</option>
+                                <option value="mixed">Mixed Plastics (75% efficiency)</option>
+                            </select>
+                        </div>
+                    </div><button id="calculate-btn"
+                        class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                        Calculate Machinable Block Output </button>
+                    <div id="calculation-results" class="mt-6 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Machinable Block Production</h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div id="block-weight" class="text-2xl font-bold text-green-600 mb-1">
+                                        0 kg
+                                    </div>
+                                    <p class="text-sm text-gray-600">Total Block Material</p>
+                                </div>
+                                <div class="text-center">
+                                    <div id="block-count" class="text-2xl font-bold text-blue-600 mb-1">
+                                        0
+                                    </div>
+                                    <p class="text-sm text-gray-600">Standard Machinable Blocks</p>
+                                </div>
+                                <div class="text-center">
+                                    <div id="waste-reduction" class="text-2xl font-bold text-purple-600 mb-1">
+                                        0%
+                                    </div>
+                                    <p class="text-sm text-gray-600">Processing Efficiency</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                <p class="text-sm text-green-800"><strong>CNC Ready:</strong> Each block (10×10×5cm) is
+                                    precision-formed and ready for milling, turning, drilling, and surface finishing
+                                    operations</p>
+                            </div>
+                            <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+                                <p class="text-sm text-blue-800"><strong>Environmental Impact:</strong> <span
+                                        id="co2-saved">0</span> kg CO₂ saved compared to virgin plastic production</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- Call to Action -->
+        <footer class="text-center"><button id="cta-button"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg transform transition hover:scale-105">
+                Learn More About Our Process </button>
+        </footer>
+    </main>
+    <script>
+        // Configuration object
+        const defaultConfig = {
+            main_title: "Plastic Waste to Machinable Blocks",
+            subtitle: "Watch how discarded plastic transforms into valuable, precision-machinable blocks through our innovative recycling process",
+            step1_title: "Waste Collection",
+            step2_title: "Sorting & Cleaning",
+            step3_title: "Shredding & Melting",
+            step4_title: "Machinable Blocks",
+            cta_button: "Learn More About Our Process",
+            primary_color: "#059669",
+            secondary_color: "#2563eb",
+            accent_color: "#dc2626",
+            background_color: "#f0fdf4",
+            text_color: "#1f2937",
+            font_family: "Inter",
+            font_size: 16
+        };
+
+        // Render function
+        async function render(config) {
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseFontStack = 'system-ui, -apple-system, sans-serif';
+            const baseSize = config.font_size || defaultConfig.font_size;
+
+            // Apply font family
+            document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+            // Apply font sizes
+            document.getElementById('main-title').style.fontSize = `${baseSize * 2.5}px`;
+            document.getElementById('subtitle').style.fontSize = `${baseSize * 1.25}px`;
+
+            const stepTitles = document.querySelectorAll('[id$="-title"]');
+            stepTitles.forEach(title => {
+                if (title.id !== 'main-title') {
+                    title.style.fontSize = `${baseSize * 1.125}px`;
+                }
+            });
+
+            // Apply colors
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+
+            document.getElementById('demo-btn').style.backgroundColor = primaryColor;
+            document.getElementById('cta-button').style.backgroundColor = secondaryColor;
+
+            // Update text content
+            document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+            document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+            document.getElementById('step1-title').textContent = config.step1_title || defaultConfig.step1_title;
+            document.getElementById('step2-title').textContent = config.step2_title || defaultConfig.step2_title;
+            document.getElementById('step3-title').textContent = config.step3_title || defaultConfig.step3_title;
+            document.getElementById('step4-title').textContent = config.step4_title || defaultConfig.step4_title;
+            document.getElementById('cta-button').textContent = config.cta_button || defaultConfig.cta_button;
+        }
+
+        // Capabilities mapping
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.primary_color || defaultConfig.primary_color,
+                        set: (value) => {
+                            config.primary_color = value;
+                            window.elementSdk.setConfig({ primary_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.secondary_color || defaultConfig.secondary_color,
+                        set: (value) => {
+                            config.secondary_color = value;
+                            window.elementSdk.setConfig({ secondary_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.accent_color || defaultConfig.accent_color,
+                        set: (value) => {
+                            config.accent_color = value;
+                            window.elementSdk.setConfig({ accent_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => {
+                        config.font_family = value;
+                        window.elementSdk.setConfig({ font_family: value });
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => {
+                        config.font_size = value;
+                        window.elementSdk.setConfig({ font_size: value });
+                    }
+                }
+            };
+        }
+
+        // Edit panel values mapping
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle],
+                ["step1_title", config.step1_title || defaultConfig.step1_title],
+                ["step2_title", config.step2_title || defaultConfig.step2_title],
+                ["step3_title", config.step3_title || defaultConfig.step3_title],
+                ["step4_title", config.step4_title || defaultConfig.step4_title],
+                ["cta_button", config.cta_button || defaultConfig.cta_button]
+            ]);
+        }
+
+        // Interactive demo functionality
+        function startDemo() {
+            const steps = document.querySelectorAll('.process-step');
+            const demoBtn = document.getElementById('demo-btn');
+
+            // Disable button during demo
+            demoBtn.disabled = true;
+            demoBtn.textContent = 'Demo Running...';
+            demoBtn.style.opacity = '0.7';
+
+            document.body.classList.add('demo-active');
+
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    // Add glowing effect
+                    step.style.transform = 'scale(1.08)';
+                    step.style.boxShadow = '0 20px 25px -5px rgba(34, 197, 94, 0.3), 0 10px 10px -5px rgba(34, 197, 94, 0.2)';
+                    step.style.backgroundColor = 'rgba(34, 197, 94, 0.05)';
+                    step.style.border = '2px solid #22c55e';
+
+                    // Add a pulse effect to the step number
+                    const stepNumber = step.querySelector('svg, .block-showcase');
+                    if (stepNumber) {
+                        stepNumber.style.animation = 'pulse 0.5s ease-in-out 3';
+                    }
+
+                    setTimeout(() => {
+                        step.style.transform = 'scale(1)';
+                        step.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+                        step.style.backgroundColor = 'white';
+                        step.style.border = 'none';
+                    }, 1200);
+                }, index * 1500);
+            });
+
+            // Re-enable button after demo
+            setTimeout(() => {
+                document.body.classList.remove('demo-active');
+                demoBtn.disabled = false;
+                demoBtn.textContent = 'Start Interactive Demo';
+                demoBtn.style.opacity = '1';
+            }, 7000);
+        }
+
+        // Calculator functionality
+        function calculateBlockOutput() {
+            const plasticInput = parseFloat(document.getElementById('plastic-input').value);
+            const plasticType = document.getElementById('plastic-type').value;
+
+            if (!plasticInput || plasticInput <= 0) {
+                return;
+            }
+
+            // Efficiency rates for different plastic types
+            const efficiencyRates = {
+                pet: 0.85,    // PET bottles
+                hdpe: 0.90,   // HDPE containers
+                pp: 0.80,     // PP packaging
+                mixed: 0.75   // Mixed plastics
+            };
+
+            const efficiency = efficiencyRates[plasticType];
+            const blockWeight = plasticInput * efficiency;
+
+            // Standard block dimensions: 10x10x5cm, density ~0.94 g/cm³
+            const blockVolume = 0.5; // 500 cm³ in liters
+            const blockDensity = 0.94; // kg/L
+            const standardBlockWeight = blockVolume * blockDensity; // ~0.47 kg per block
+
+            const blockCount = Math.floor(blockWeight / standardBlockWeight);
+            const wasteReduction = Math.round(efficiency * 100);
+            const co2Saved = Math.round(blockWeight * 2.1); // ~2.1 kg CO2 saved per kg recycled plastic
+
+            // Update results
+            document.getElementById('block-weight').textContent = `${blockWeight.toFixed(1)} kg`;
+            document.getElementById('block-count').textContent = blockCount;
+            document.getElementById('waste-reduction').textContent = `${wasteReduction}%`;
+            document.getElementById('co2-saved').textContent = co2Saved;
+
+            // Show results with animation
+            const resultsDiv = document.getElementById('calculation-results');
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.style.opacity = '0';
+            resultsDiv.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                resultsDiv.style.transition = 'all 0.5s ease';
+                resultsDiv.style.opacity = '1';
+                resultsDiv.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Event listeners - Initialize immediately
+        function initializeEventListeners() {
+            const demoBtn = document.getElementById('demo-btn');
+            const ctaBtn = document.getElementById('cta-button');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const plasticInput = document.getElementById('plastic-input');
+
+            if (demoBtn) {
+                demoBtn.addEventListener('click', startDemo);
+            }
+
+            if (ctaBtn) {
+                ctaBtn.addEventListener('click', function () {
+                    // Scroll to top smoothly
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', calculateBlockOutput);
+            }
+
+            if (plasticInput) {
+                plasticInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        calculateBlockOutput();
+                    }
+                });
+            }
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeEventListeners);
+        } else {
+            initializeEventListeners();
+        }
+
+        // Initialize Element SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                render,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9911ed913665cbb5',t:'MTc2MDg5NDIzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
